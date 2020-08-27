@@ -1,0 +1,33 @@
+Created on Wed Aug 26 15:39:06 2020
+
+@author: raulm
+"""
+
+import pandas as pd
+
+
+
+def users(fichero):
+    users=pd.read_csv(fichero,sep=",",decimal=",",encoding='latin_1')
+    df=pd.DataFrame(users)
+    #1-Impresion del dataframe.
+    print("DataFrame Users:\n {}\n".format(df))
+    print((df.loc[df['age'] > 20])['name'])
+    print((df[(df['age']>20) & (df['gender']=='female')])['name'])
+    print(df['email'].str.extract(r'(@example.com$)'))
+    print((df[(df['country']=='Germany') | (df['country']=='Canada') |(df['country']=='Finland')])[['name','email','country']])
+    print("----")
+    print((df[(df['country']=='Germany') & (df['gender']=='female')])[['name','email','country']])
+    print("----")
+    print((df.sort_values(by='age', ascending=False)[['name','age','country']]).head())
+    print("----")
+    print((df.groupby(by=["gender"]).count())['name'])
+    print("----")
+    print(((df.groupby(by=["country"]).count())['name']).sort_values(ascending=False).head())
+    print("----")
+    print((df[(df['age']>50) & (df['country']=='Germany')])[['name','age','country']])
+    a=(df[(df['age']>50) & (df['country']=='Germany')])[['name','age','country']]
+    a.to_excel("C:\\Users\\raulm\\OneDrive\\Desktop\\Python\\consulta_final.xlsx") 
+    
+users("C:\\Users\\raulm\\OneDrive\\Desktop\\Python\\users.csv") 
+
